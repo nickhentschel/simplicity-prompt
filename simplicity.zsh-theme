@@ -1,7 +1,11 @@
+autoload -U colors
+colors
+setopt prompt_subst
+
 # get the name of the branch we are on
 function git_prompt_info() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-        echo " ${ref#refs/heads/}%{$reset_color%}"
+        echo " %{$fg[green]%}${ref#refs/heads/}%{$reset_color%}"
 }
 
 function check_root() {
@@ -21,6 +25,3 @@ function check_ssh() {
 }
 
 PROMPT='%{$fg[red]%}%(1j.*.)%{$fg[blue]%}[$(check_ssh)%{$fg[blue]%}%1~$(git_prompt_info)%{$fg[blue]%}]$(check_root)%{$reset_color%}'
-
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}"
