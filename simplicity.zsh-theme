@@ -23,4 +23,4 @@ function check_running_proc() {
     echo "%{$fg[yellow]%}%(1j.∙.)%{$reset_color%}"
 }
 
-PROMPT='%F{$_color}┌───$(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%F{$_color}└ '
+PROMPT='%F{$_color}┌───$(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%F{$_color}└ %{$reset_color%}'
