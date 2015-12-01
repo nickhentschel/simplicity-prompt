@@ -4,27 +4,23 @@ autoload -U colors && colors
 _newline=$'\n'
 
 if [[ $UID == 0 || $EUID == 0 ]]; then
-    _color="red"
+    _color="160"
 else
-    _color="default"
+    _color="236"
 fi
 
 # get the name of the branch we are on
 function git_prompt_info() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    echo "%{$fg[$_color]%}[%{$fg[default]%}$(basename `git rev-parse --show-toplevel`)::%{$fg[green]%}${ref#refs/heads/}%{$fg[$_color]%}]%{$fg[$_color]%} "
+    echo "%F{$_color}─[%F{244}$(basename `git rev-parse --show-toplevel`)::%{$fg[green]%}${ref#refs/heads/}%F{$_color}]%F{$_color} "
 }
 
 function set_hostname() {
-    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        echo "%{$fg[magenta]%}%n@%m%{$reset_color%} "
-    else
-        echo "%{$fg[default]%}%n@%m%{$reset_color%} "
-    fi
+    echo "%F{$_color}[%n%F{198}@%F{244}%m%F{$_color}]%{$reset_color%}"
 }
 
 function check_running_proc() {
-    echo "%{$fg[red]%}%(1j.∙.)%{$reset_color%}"
+    echo "%{$fg[yellow]%}%(1j.∙.)%{$reset_color%}"
 }
 
-PROMPT='%{$fg[$_color]%}┌─── $(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%{$fg_bold[$_color]%}└ '
+PROMPT='%F{$_color}┌───$(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%F{$_color}└ '
