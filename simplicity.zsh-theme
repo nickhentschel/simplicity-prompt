@@ -3,18 +3,25 @@
 setopt prompt_subst
 autoload -U colors && colors
 
-_newline=$'\n'
+# _newline=$'\n'
+GREEN="%{$fg_bold[green]%}"
+GRAY="%{$fg_bold[gray]%}"
+YELLOW="%{$fg_bold[yellow]%}"
+CYAN="%{$fg_bold[cyan]%}"
+MAGENTA="%{$fg_bold[magenta]%}"
+RED="%{$fg_bold[red]%}"
+RESET="%{$reset_color%}"
 
 if [[ $UID == 0 || $EUID == 0 ]]; then
-  _color="160"
+  _color=$RED
 else
-  _color="236"
+  _color=$GREEN
 fi
 
 # get the name of the branch we are on
 git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "%F{$_color}─[%F{244}$(basename `git rev-parse --show-toplevel`)::%{$fg[green]%}${ref#refs/heads/}%F{$_color}]%F{$_color}"
+  echo " $CYAN${ref#refs/heads/}$RESET "
 }
 
 set_hostname() {
@@ -22,7 +29,8 @@ set_hostname() {
 }
 
 check_running_proc() {
-  echo "%{$fg[yellow]%}%(1j.∙.)%{$reset_color%}"
+  echo "$RED%(1j.∙.)$RESET "
 }
 
-PROMPT='%F{$_color}┌───$(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%F{$_color}└ %{$reset_color%}'
+# PROMPT='%F{$_color}┌───$(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%F{$_color}└ %{$reset_color%}'
+PROMPT='$_color⬢  $YELLOW%c$RESET $(git_prompt_info)$(check_running_proc)'
