@@ -29,8 +29,7 @@ set_hostname() {
 }
 
 check_running_proc() {
-  echo "$RED%(1j.∙.)$RESET "
+  echo "$_color%(1j.◆.◊)$RESET "
 }
 
-# PROMPT='%F{$_color}┌───$(set_hostname)$(git_prompt_info)$(check_running_proc)${_newline}%F{$_color}└ %{$reset_color%}'
-PROMPT='$_color⬢  $YELLOW%c$RESET $(git_prompt_info)$(check_running_proc)'
+PROMPT='$YELLOW%c$RESET $(git_prompt_info)$(check_running_proc)$RESET'
