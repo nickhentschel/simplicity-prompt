@@ -25,11 +25,13 @@ git_prompt_info() {
 }
 
 set_hostname() {
-  echo "%F{$_color}[%n%F{198}@%F{244}%m%F{$_color}]%{$reset_color%}"
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    echo "$MAGENTA%m$RESET"
+  fi
 }
 
 check_running_proc() {
   echo "$_color%(1j.◆.◊)$RESET "
 }
 
-PROMPT='$YELLOW%c$RESET $(git_prompt_info)$(check_running_proc)$RESET'
+PROMPT='$(set_hostname)$YELLOW%c$RESET $(git_prompt_info)$(check_running_proc)$RESET'
