@@ -26,7 +26,7 @@ git_prompt_info() {
 
 set_hostname() {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "$MAGENTA%m$RESET"
+    echo "$MAGENTA%m$RESET "
   fi
 }
 
