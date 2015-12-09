@@ -1,37 +1,27 @@
-#!/bin/zsh
-
+autoload -U colors
+colors
 setopt prompt_subst
-autoload -U colors && colors
-
-# _newline=$'\n'
-GREEN="%{$fg_bold[green]%}"
-GRAY="%{$fg_bold[gray]%}"
-YELLOW="%{$fg_bold[yellow]%}"
-CYAN="%{$fg_bold[cyan]%}"
-MAGENTA="%{$fg_bold[magenta]%}"
-RED="%{$fg_bold[red]%}"
-RESET="%{$reset_color%}"
-
-if [[ $UID == 0 || $EUID == 0 ]]; then
-  _color=$RED
-else
-  _color=$GREEN
-fi
 
 # get the name of the branch we are on
-git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " $CYAN${ref#refs/heads/}$RESET "
+function git_prompt_info() {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+        echo " %{$fg[green]%}${ref#refs/heads/}%{$reset_color%}"
 }
 
-set_hostname() {
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "$MAGENTA%m$RESET "
-  fi
+function check_root() {
+    symbol=""
+    if [[ $UID == 0 || $EUID == 0 ]]; then
+        symbol=" %{$fg[red]%}# "
+    else
+        symbol=" %{$reset_color%}$ "
+    fi
+    echo $symbol
 }
 
-check_running_proc() {
-  echo "$_color%(1j.◆.◊)$RESET "
+function check_ssh() {
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        echo "%{$fg[magenta]%}%m%{$reset_color%} "
+    fi
 }
 
-PROMPT='$(set_hostname)$YELLOW%c$RESET $(git_prompt_info)$(check_running_proc)$RESET'
+PROMPT='%{$fg[red]%}%(1j.*.)%{$fg[blue]%}[$(check_ssh)%{$fg[blue]%}%1~$(git_prompt_info)%{$fg[blue]%}]$(check_root)%{$reset_color%}'
