@@ -3,26 +3,30 @@ autoload -U colors
 colors
 setopt prompt_subst
 
+RESET="%{$reset_color%}"
+RED="%{$fg[red]%}"
+BLUE="%{$fg[blue]%}"
+GREEN="%{$fg[green]%}"
+MAGENTA="%{$fg[magenta]%}"
+
 # get the name of the branch we are on
 git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " %{$fg[green]%}${ref#refs/heads/}%{$reset_color%}"
+  echo " ${GREEN}${ref#refs/heads/}${RESET}"
 }
 
 check_root() {
-  symbol=""
-  if [[ $UID == 0 || $EUID == 0 ]]; then
-    symbol=" %{$fg[red]%}# "
-  else
-    symbol=" %{$reset_color%}$ "
-  fi
-  echo $symbol
+  echo "%(!.${RED} #.${RESET} $) "
 }
 
 check_ssh() {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "%{$fg[magenta]%}%m%{$reset_color%} "
+    echo "${MAGENTA}%m${RESET} "
   fi
 }
 
-PROMPT='%{$fg[red]%}%(1j.*.)%{$fg[blue]%}[$(check_ssh)%{$fg[blue]%}%1~$(git_prompt_info)%{$fg[blue]%}]$(check_root)%{$reset_color%}'
+get_path() {
+  echo "${BLUE}%20<...<%~%<<${RESET}"
+}
+
+PROMPT='${RED}%(1j.◆ .)$(check_ssh)$(get_path)$(git_prompt_info)$(check_root)${RESET}'
