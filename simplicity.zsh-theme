@@ -29,4 +29,4 @@ get_path() {
   echo "${BLUE}%20<...<%~%<<${RESET}"
 }
 
-PROMPT='${RED}%(1j.*.)$(check_ssh)$(get_path)$(git_prompt_info)$(check_root)${RESET}'
+PROMPT='${RED}%(1j.* .)$(check_ssh)$(get_path)$(git_prompt_info)$(check_root)${RESET}'
