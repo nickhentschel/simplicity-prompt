@@ -21,7 +21,7 @@ check_root() {
 
 check_ssh() {
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    echo "${MAGENTA}%m${RESET} "
+    echo "${MAGENTA}%3m${RESET} "
   fi
 }
 
