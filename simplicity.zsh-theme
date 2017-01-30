@@ -8,7 +8,7 @@ RED="%{$fg[red]%}"
 BLUE="%{$fg[blue]%}"
 GREEN="%{$fg[green]%}"
 MAGENTA="%{$fg[magenta]%}"
-CYAN="%{$fg[CYAN]%}"
+CYAN="%{$fg[cyan]%}"
 
 # get the name of the branch we are on
 git_prompt_info() {
