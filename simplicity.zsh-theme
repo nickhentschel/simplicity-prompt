@@ -8,6 +8,7 @@ RED="%{$fg[red]%}"
 BLUE="%{$fg[blue]%}"
 GREEN="%{$fg[green]%}"
 MAGENTA="%{$fg[magenta]%}"
+CYAN="%{$fg[CYAN]%}"
 
 # get the name of the branch we are on
 git_prompt_info() {
@@ -22,7 +23,7 @@ check_root() {
 check_osx() {
   if ! [[ "$(uname)" =~ "Darwin" ]]; then
     if [[ "$(hostname -f)" =~ "dev" ]]; then
-      echo "${RESET}%3m${RESET} "
+      echo "${CYAN}%3m${RESET} "
     else
       echo "${RED}%3m${RESET} "
     fi
