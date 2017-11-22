@@ -1,37 +1,20 @@
 #!/bin/zsh
-autoload -U colors
-colors
 setopt prompt_subst
-
-RESET="%{$reset_color%}"
-RED="%{$fg[red]%}"
-BLUE="%{$fg[blue]%}"
-GREEN="%{$fg[green]%}"
-MAGENTA="%{$fg[magenta]%}"
-CYAN="%{$fg[cyan]%}"
 
 # get the name of the branch we are on
 git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " ${GREEN}${ref#refs/heads/}${RESET}"
-}
-
-check_root() {
-  echo "%(!.${RED} #.${RESET} $) "
+  echo " %F{green}[%B${ref#refs/heads/}%b]%f"
 }
 
 check_osx() {
-  if ! [[ "$(uname)" =~ "Darwin" ]]; then
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     if [[ "$(hostname -f)" =~ "dev" ]]; then
-      echo "${CYAN}%3m${RESET} "
+      echo "%F{magenta}%3m%f "
     else
-      echo "${RED}%3m${RESET} "
+      echo "%F{red}%B%3m%b%f "
     fi
   fi
 }
 
-get_path() {
-  echo "${BLUE}%20<...<%~%<<${RESET}"
-}
-
-PROMPT='${RED}%(1j.* .)$(check_osx)$(get_path)$(git_prompt_info)$(check_root)${RESET}'
+PROMPT='%F{red}%B%(1j.* .)%f$(check_osx)%b%F{blue}[%B%~%b]%f$(git_prompt_info)%(!.%F{red} #%f. ») '
