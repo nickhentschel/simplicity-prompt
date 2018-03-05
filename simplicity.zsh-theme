@@ -18,5 +18,5 @@ check_host() {
 }
 
 # PROMPT='%F{red}%B%(1j.* .)%f$(check_host)%b%F{blue}[%B%~%b%f%F{blue}]%f$(git_prompt_info)%(!.%F{red} #%f. >) '
-PROMPT='%F{red}%B%(1j.* .)%f%(!.%F{red}.%F{green})%B%n%f%b$(check_host):%F{blue}%B%~%b%(!.%F{red}#.%f$) '
+PROMPT='%F{red}%B%(1j.* .)%f%(!.%F{red}.%F{green})%B%n%f%b$(check_host):%F{blue}%B%~%b%(!.%F{red}#%f.%f$) '
 RPROMPT='$(git_prompt_info)'
