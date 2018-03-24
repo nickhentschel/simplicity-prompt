@@ -33,7 +33,7 @@ simplicity_zsh_theme() {
     host=''
   fi
 
-  PROMPT='%(?..%B%F{red}(%?%)%f%b )%F{red}%B%(1j.* .)%f%F{green}%B%n$host%b %F{blue}%B$short_path %b$(_vi_mode_indicator) '
+  PROMPT='%(?..%B%F{red}(%?%)%f%b )%F{red}%B%(1j.* .)%f%F{green}%B%n$host%b %F{blue}%B$short_path %b%f$(_vi_mode_indicator) '
   RPROMPT='$(_git_prompt_info)'
 }
 
