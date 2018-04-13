@@ -3,7 +3,7 @@ setopt prompt_subst
 # get the name of the branch we are on
 _git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo " %F{yellow}%B[${ref#refs/heads/}]%b%f"
+  echo " %F{250}%B[${ref#refs/heads/}]%b%f"
 }
 
 zle-keymap-select() {
@@ -33,7 +33,7 @@ simplicity_zsh_theme() {
     host=''
   fi
 
-  PROMPT='%(?..%B%F{red}(%?%)%f%b )%F{red}%B%(1j.* .)%f%F{green}%B%n$host%b %F{blue}%B$short_path %b%f$(_vi_mode_indicator) '
+  PROMPT='%(?..%B%F{red}(%?%)%f%b )%F{red}%B%(1j.* .)%f%n%F{250}%B$host%b %F{250}%B$short_path %b%f$(_vi_mode_indicator) '
   RPROMPT='$(_git_prompt_info)'
 }
 
