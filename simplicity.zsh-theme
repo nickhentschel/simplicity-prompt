@@ -3,7 +3,7 @@ setopt prompt_subst
 # get the name of the branch we are on
 _git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "[${ref#refs/heads/}] "
+  echo "%F{white}[${ref#refs/heads/}]%f "
 }
 
 zle-keymap-select() {
@@ -23,7 +23,7 @@ _vi_mode_indicator() {
 }
 
 simplicity_zsh_theme() {
-  short_path='%(5~|%-1~/…/%3~|%4~)'
+  short_path='%F{245}%(5~|%-1~/…/%3~|%4~)%f'
 
   zle -N zle-keymap-select
 
@@ -33,7 +33,7 @@ simplicity_zsh_theme() {
     host=''
   fi
 
-  PROMPT='%(?..%F{red}(%?%)%f )%F{red}%(1j.* .)%f%n$host [$short_path] $(_git_prompt_info)$(_vi_mode_indicator) '
+  PROMPT='%(?..%F{red}(%?%)%f )%F{red}%(1j.* .)%f%n$host $short_path $(_git_prompt_info)$(_vi_mode_indicator) '
 }
 
 simplicity_zsh_theme
