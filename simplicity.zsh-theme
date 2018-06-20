@@ -24,7 +24,7 @@ _vi_mode_indicator() {
 
 _kube_context() {
   # Get current context
-  CONTEXT=$(grep "current-context:" ~/.kube/config | sed "s/current-context: //")
+  CONTEXT=$(grep "current-context:" ~/.kube/config 2>&1 | sed "s/current-context: //")
 
   if [ -n "$CONTEXT" ]; then
     echo "[${CONTEXT}]"
