@@ -3,7 +3,7 @@ setopt prompt_subst
 # get the name of the branch we are on
 _git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "%F{white}[${ref#refs/heads/}]%f "
+  echo "[${ref#refs/heads/}] "
 }
 
 zle-keymap-select() {
@@ -22,6 +22,15 @@ _vi_mode_indicator() {
   esac
 }
 
+_kube_context() {
+  # Get current context
+  CONTEXT=$(grep "current-context:" ~/.kube/config | sed "s/current-context: //")
+
+  if [ -n "$CONTEXT" ]; then
+    echo "[${CONTEXT}]"
+  fi
+}
+
 simplicity_zsh_theme() {
   short_path='%F{245}%(5~|%-1~/…/%3~|%4~)%f'
 
@@ -34,6 +43,7 @@ simplicity_zsh_theme() {
   fi
 
   PROMPT='%(?..%F{red}(%?%)%f )%F{red}%(1j.* .)%f%n$host $short_path $(_git_prompt_info)$(_vi_mode_indicator) '
+  RPROMPT='$(_kube_context)'
 }
 
 simplicity_zsh_theme
