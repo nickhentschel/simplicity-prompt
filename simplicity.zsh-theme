@@ -18,7 +18,7 @@ _is_ssh() {
 _vi_mode_indicator() {
   case $KEYMAP in
     vicmd) print -n ':' ;;
-    *) print -n '%#' ;;
+    *) print -n '%F{202}%#%f' ;;
   esac
 }
 
@@ -37,12 +37,12 @@ simplicity_zsh_theme() {
   zle -N zle-keymap-select
 
   if _is_ssh || [[ $EUID -eq 0 ]]; then
-    host="%F{cyan}@%3m%f"
+    host="%F{cyan}%3m%f "
   else
     host=''
   fi
 
-  PROMPT='%(?..%F{red}(%?%)%f )%F{red}%(1j.* .)%f%n$host $short_path $(_git_prompt_info)$(_vi_mode_indicator) '
+  PROMPT='%F{202}%(1j.* .)%f$host$short_path $(_git_prompt_info)$(_vi_mode_indicator) '
   RPROMPT='$(_kube_context)'
 }
 
